@@ -5,14 +5,16 @@ import "fmt"
 var a, b, c int
 
 func main() {
-	userInfo := getUserInfo("Ivan", 40)
-	printMessage(userInfo)
+	information, entered := getPass(54)
+	fmt.Println(information, entered)
 }
 
-func printMessage(message string) {
-	fmt.Println(message)
-}
+func getPass(age int) (string, bool) {
+	if age >= 18 && age < 50 {
+		return "Проходите", true
+	} else if age > 50 {
+		return "Поберегите себя", false
+	}
 
-func getUserInfo(name string, age int) string {
-	return fmt.Sprintf("Hello! I am %s! And I am %d years old", name, age)
+	return "Вам еще нет 18", false
 }
