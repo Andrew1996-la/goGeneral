@@ -1,20 +1,32 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
-var a, b, c int
+/*
+	для обработки ошибки используется пакет errors
+	мы можем передать как ошибку errors.New() так и отсутсвие ошибки nil
+	далее можно проверить если не ошибка то вывести сообщение, если ошибка вывести ошибку
+*/
 
 func main() {
-	information, entered := getPass(54)
-	fmt.Println(information, entered)
-}
-
-func getPass(age int) (string, bool) {
-	if age >= 18 && age < 50 {
-		return "Проходите", true
-	} else if age > 50 {
-		return "Поберегите себя", false
+	information, err := getPass(20)
+	if err != nil {
+		fmt.Println(err)
+		return
 	}
 
-	return "Вам еще нет 18", false
+	fmt.Println(information)
+}
+
+func getPass(age int) (string, error) {
+	if age >= 18 && age < 50 {
+		return "Проходите", nil
+	} else if age > 50 {
+		return "Поберегите себя", errors.New("you are too old")
+	}
+
+	return "Вам еще нет 18", errors.New("you are too young")
 }
