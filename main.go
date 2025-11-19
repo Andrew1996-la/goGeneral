@@ -2,44 +2,17 @@ package main
 
 import "fmt"
 
+var a, b, c int
+
 func main() {
-	/*
-		нулевое значение для строки это пустая строка
-		для int это 0
-		для boolean false
-	*/
-	// var message string
+	userInfo := getUserInfo("Ivan", 40)
+	printMessage(userInfo)
+}
 
-	/*
-		int это целочисленное число
-		может быть int8, int 16. Это то сколько байт будет занимать число
-	*/
-	// var numberInt int
+func printMessage(message string) {
+	fmt.Println(message)
+}
 
-	/*
-		uint это признак того что может быть записано только положительное число
-	*/
-	// var numberUnit uint
-
-	/*
-		number float это число с плавающей точкой
-	*/
-	// var numberFloat float64 = 2.5
-
-	/*
-		byte и rune
-		1byte(8 бит) возвращает код части символа если он больше 1 байта
-		1rune(32 бит) возвращает полный unicod символа
-	*/
-	// b := "ф"
-	// fmt.Println([]rune(b))
-
-	// Множественное присвоение
-	a, b, c := 1, 2, 3
-
-	a, b = b, a //пример обмена знчений переменных
-
-	a, _, c = 10, 3, 20 // _ это пустота, таким образом 3 мы никуда не запишем и там сатанется значение переменной b
-
-	fmt.Println(a, b, c)
+func getUserInfo(name string, age int) string {
+	return fmt.Sprintf("Hello! I am %s! And I am %d years old", name, age)
 }
