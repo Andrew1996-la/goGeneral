@@ -2,23 +2,40 @@ package main
 
 import "fmt"
 
+/*
+	ЗАМЫКАНИЕ
+
+	В примере ниже реализован пример замыкания
+
+	функция interment возвращает функцию которая возвращает int
+	внутри interment есть переменная count которая сохраняется и инкрементируется при вызове ананимной функции
+
+	counter := interment(). в counter записывается функция
+			return func() int {
+			count++
+			return count
+		}
+	по сути это ананимная функция из interment
+
+	каждый вызов функции counter инкрементирует counter.
+
+*/
+
 func main() {
-	fmt.Println(getMin(3, 4, 2, 5, 6, 74, 76, -2))
+	counter := interment()
+
+	fmt.Println(counter())
+	fmt.Println(counter())
+	fmt.Println(counter())
+	fmt.Println(counter())
+	fmt.Println(counter())
 }
 
-func getMin(numbers ...int) int {
-	if len(numbers) == 0 {
-		return 0
+func interment() func() int {
+	count := 0
+
+	return func() int {
+		count++
+		return count
 	}
-
-	min := numbers[0]
-
-	for _, i := range numbers {
-		if i < min {
-			min = i
-		}
-	}
-
-
-	return min
 }
