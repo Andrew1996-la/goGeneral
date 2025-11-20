@@ -2,41 +2,23 @@ package main
 
 import "fmt"
 
-type Day int
-
-const (
-	Monday Day = iota
-	Tuesday
-	Wednesday
-	Thursday
-	Friday
-	Saturday
-	Sunday
-)
-
 func main() {
-	plan := getPlans(Sunday)
-
-	fmt.Println(plan)
+	fmt.Println(getMin(3, 4, 2, 5, 6, 74, 76, -2))
 }
 
-func getPlans(dayOfWeek Day) string {
-	switch dayOfWeek {
-	case Monday:
-		return "Отличный день что бы начать то что давно откладывал"
-	case Tuesday:
-		return "Запланирую тренировку"
-	case Wednesday:
-		return "Подготовить доклад"
-	case Thursday:
-		return "Разобрать новую тему по go"
-	case Friday:
-		return "Немного отдохнем"
-	case Saturday:
-		return "Поездака за город"
-	case Sunday:
-		return "Запланируй следующюю неделю"
-	default:
-		return "не валидный день недели"
+func getMin(numbers ...int) int {
+	if len(numbers) == 0 {
+		return 0
 	}
+
+	min := numbers[0]
+
+	for _, i := range numbers {
+		if i < min {
+			min = i
+		}
+	}
+
+
+	return min
 }
