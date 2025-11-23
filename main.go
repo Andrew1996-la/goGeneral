@@ -2,26 +2,13 @@ package main
 
 import "fmt"
 
-/*
-	СЛАЙС
-*/
-
 func main() {
-	mySlice := []string{"1", "2", "3"}
+	//var mySlice []string // <- при такой инициализации слайса его указатель nil
+	mySlice := make([]string, 50)
+
+	mySlice = append(mySlice, "51")
 
 	fmt.Println(mySlice)
-
-	changeArr(mySlice)
-
-	fmt.Println(mySlice)
-}
-
-/*
-	Слайс это обертка над массивом и он содержит ссылку.
-	Поэтому передвая в функцию слайс и модифицируя его внутри
-	фукнкции фактически мы модифицируем исходный слайс
-*/
-func changeArr(mySlice []string) {
-	mySlice[1] = "13"
-	fmt.Println(mySlice)
+	fmt.Println(len(mySlice))
+	fmt.Println(cap(mySlice))
 }
