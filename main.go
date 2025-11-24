@@ -2,23 +2,33 @@ package main
 
 import "fmt"
 
-
 /*
- defer откладывает выполнение функции до завершения других функций
- после чего начинает свое выполнение в порядке сверху вниз
+	после того как функция завершается с паникой срабатывает handlePanic
+	recover может опознать панику, и если паника есть мы не завершаем программу
+	с паникой, а можем продолжить выполнение
 */
-
 func main() {
-	defer printText()
-	fmt.Println("norm")
-	defer printSomething()
-	fmt.Println("text from main")
+	defer handlePanic()
+	messages := []string{
+		"message 1",
+		"message 2",
+		"message 3",
+		"message 4",
+		"message 5",
+	}
+
+	messages[5] = "message 6"
+
+	fmt.Println(messages)
 }
 
-func printText()  {
-	fmt.Println("any text from function")
-}
+func handlePanic() {
 
-func printSomething()  {
-	fmt.Println("pring something")
+	/*
+		if <инициализация>; <условие> {
+	   		 // тело if
+	}	*/
+	if r := recover(); r != nil {
+		fmt.Println(r)
+	}
 }
