@@ -2,30 +2,23 @@ package main
 
 import "fmt"
 
+
+/*
+ defer откладывает выполнение функции до завершения других функций
+ после чего начинает свое выполнение в порядке сверху вниз
+*/
+
 func main() {
-	messages := []string{
-		"message 1",
-		"message 2",
-		"message 3",
-		"message 4",
-		"message 5",
-	}
+	defer printText()
+	fmt.Println("norm")
+	defer printSomething()
+	fmt.Println("text from main")
+}
 
+func printText()  {
+	fmt.Println("any text from function")
+}
 
-	// Альтернативный способ запуска цикла. Специально для слайсов и массивов
-	// первый аргумент индекс, второй само значение
-	for _, message := range messages {
-		fmt.Println(message)
-	}
-
-	counter := 0
-
-	// цикл без условия - бесконечный
-	for {
-		fmt.Println(counter)
-		if(counter == 100) {
-			break // <- ключевое слово для выхода из цикла
-		}
-		counter++
-	}
+func printSomething()  {
+	fmt.Println("pring something")
 }
