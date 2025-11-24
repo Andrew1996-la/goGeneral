@@ -3,32 +3,51 @@ package main
 import "fmt"
 
 /*
-	после того как функция завершается с паникой срабатывает handlePanic
-	recover может опознать панику, и если паника есть мы не завершаем программу
-	с паникой, а можем продолжить выполнение
+	МАПА
 */
 func main() {
-	defer handlePanic()
-	messages := []string{
-		"message 1",
-		"message 2",
-		"message 3",
-		"message 4",
-		"message 5",
-	}
-
-	messages[5] = "message 6"
-
-	fmt.Println(messages)
-}
-
-func handlePanic() {
 
 	/*
-		if <инициализация>; <условие> {
-	   		 // тело if
-	}	*/
-	if r := recover(); r != nil {
-		fmt.Println(r)
+		первый способ инициализации мапы
+		создаеься и можем сразу положить данные
+	*/
+	users:= map[string]int{
+		"Joe": 29,
+		"Doy": 27,
+		"Peter": 35,
 	}
+	
+	delete(users, "Joe") // <- Удаление из мапы
+	users["Ann"] = 23 // <- Добавление нового значения
+
+	/*
+		из мапы мы можем записать переменную. По ключу получаем значение
+		exists или ok это признак что ключ был наиден. Если ключа нет - false
+	*/
+	age, exists := users["Peterа"]
+
+	if(!exists) {
+		fmt.Println("Такого пользователя нет")
+	} else {
+		fmt.Println(age)
+	}
+
+
+	/*
+		цикл для перебора мапы
+		можно деструктуризировать ключ и значение
+	*/
+	for name, age := range users {
+		fmt.Println(name, age)
+	}
+
+
+	/* 
+		второй способ инициализации мапы (make)
+		при инициализации данные положить не можем
+	*/
+	// cars := make(map[string]int)
+
+
 }
+
