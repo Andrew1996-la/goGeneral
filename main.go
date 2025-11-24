@@ -3,39 +3,29 @@ package main
 import "fmt"
 
 func main() {
-	getDiogonalMatix(10, 10)
-	getReverseDiogonalMatix(10, 10)
-}
-
-func getDiogonalMatix(axisX int, axisY int) {
-	matrix := make([][]int, axisX)
-
-	for x := 0; x < axisX; x++ {
-		matrix[x] = make([]int, axisY)
-
-		for y := 0; y < axisY; y++ {
-			if x == y {
-				matrix[x][y] = y
-			}
-		}
-
-		fmt.Println(matrix[x])
-	}
-}
-
-func getReverseDiogonalMatix(axisX int, axisY int) {
-	matrix := make([][]int, axisX)
-
-	for x := 0; x < axisX; x++ {
-		matrix[x] = make([]int, axisY)
-
-		for y := axisY - 1; y > 0; y-- {
-			if x + y == axisY - 1{
-				matrix[x][y] = y
-			}
-		}
-
-		fmt.Println(matrix[x])
+	messages := []string{
+		"message 1",
+		"message 2",
+		"message 3",
+		"message 4",
+		"message 5",
 	}
 
+
+	// Альтернативный способ запуска цикла. Специально для слайсов и массивов
+	// первый аргумент индекс, второй само значение
+	for _, message := range messages {
+		fmt.Println(message)
+	}
+
+	counter := 0
+
+	// цикл без условия - бесконечный
+	for {
+		fmt.Println(counter)
+		if(counter == 100) {
+			break // <- ключевое слово для выхода из цикла
+		}
+		counter++
+	}
 }
