@@ -3,51 +3,71 @@ package main
 import "fmt"
 
 /*
-	МАПА
+СТРУКТУРЫ
 */
+
+/*
+Часто структуры задаются именно таким образом
+для удобства переиспользования
+*/
+type Car struct {
+	manufacturer string
+	cost         int
+	color        string
+	power        int
+	hasLeftWeel  bool
+}
+
+/*
+функция конструктор
+*/
+func NewCar(manufacturer, color string, cost, power int, hasLeftWeel bool) Car {
+	return Car{
+		manufacturer: manufacturer,
+		color:        color,
+		cost:         cost,
+		power:        power,
+		hasLeftWeel:  hasLeftWeel,
+	}
+}
+
 func main() {
 
 	/*
-		первый способ инициализации мапы
-		создаеься и можем сразу положить данные
+		один из способов инициализцации структуры.
+		инициализируктся вместе со значением, не переиспользуется
 	*/
-	users:= map[string]int{
-		"Joe": 29,
-		"Doy": 27,
-		"Peter": 35,
+	// car := struct {
+	// 	manufacturer string
+	// 	cost         int
+	// 	color        string
+	// 	power        int
+	// 	hasLeftWeel  bool
+	// }{
+	// 	manufacturer: "BMW",
+	// 	cost:         2000000,
+	// 	color:        "Black",
+	// 	power:        350,
+	// 	hasLeftWeel:  true,
+	// }
+
+	/*
+		инициализация структуры отнаследоавнной от Car
+	*/
+	car1 := Car{
+		manufacturer: "Volvo",
+		cost:         1500000,
+		color:        "white",
+		power:        180,
+		hasLeftWeel:  true,
 	}
+
+	car2 := NewCar("Lada", "black", 250000, 80, true) // <- инициализация через конструктор
 	
-	delete(users, "Joe") // <- Удаление из мапы
-	users["Ann"] = 23 // <- Добавление нового значения
+	
 
-	/*
-		из мапы мы можем записать переменную. По ключу получаем значение
-		exists или ok это признак что ключ был наиден. Если ключа нет - false
-	*/
-	age, exists := users["Peterа"]
-
-	if(!exists) {
-		fmt.Println("Такого пользователя нет")
-	} else {
-		fmt.Println(age)
-	}
-
-
-	/*
-		цикл для перебора мапы
-		можно деструктуризировать ключ и значение
-	*/
-	for name, age := range users {
-		fmt.Println(name, age)
-	}
-
-
-	/* 
-		второй способ инициализации мапы (make)
-		при инициализации данные положить не можем
-	*/
-	// cars := make(map[string]int)
-
+	fmt.Println(car1.cost) // <- обращение к конкретному свойству структуры по ключу
+	fmt.Println(car1)
+	fmt.Println(car2)
 
 }
-
