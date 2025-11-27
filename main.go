@@ -1,55 +1,71 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 /*
-Интерфейсы
+Композиция интерфейсов
 */
-type Calculator interface {
-	Calculate(num1, num2 int) int
-	Name() string
+
+/*
+Интерфейс содержащий другие интерфейсы называется композиция интерфейсов
+
+Когда функция принимает аргументом shape то ее структуры должны иметь
+имеплементация и ShapeWithArea и ShapeWithPrimetr
+*/
+type Shape interface {
+	ShapeWithArea
+	ShapeWithPrimetr
 }
 
-type Adder struct{}
-type Multiplier struct{}
-type Subtractor struct{}
-
-func (a Adder) Calculate(num1, num2 int) int {
-	return num1 + num2
-}
-func (a Adder) Name() string {
-	return "Adder"
+type ShapeWithArea interface {
+	Area() float32
 }
 
-func (m Multiplier) Calculate(num1, num2 int) int {
-	return num1 * num2
-}
-func (m Multiplier) Name() string {
-	return "Multiplier"
+type ShapeWithPrimetr interface {
+	Perimetr() float32
 }
 
-func (s Subtractor) Calculate(num1, num2 int) int {
-	return num1 - num2
+type Square struct {
+	sideLength float32
 }
-func (s Subtractor) Name() string {
-	return "Subtractor"
+
+type Circle struct {
+	radius float32
+}
+
+/*
+для Square и Circle имплементируем метод Area
+*/
+func (s Square) Area() float32 {
+	return s.sideLength * s.sideLength
+}
+func (c Circle) Area() float32 {
+	return c.radius * c.radius * math.Pi
+}
+
+/*
+для Square и Circle имплементируем метод Perimetr
+*/
+func (s Square) Perimetr() float32 {
+	return s.sideLength * 4
+}
+func (c Circle) Perimetr() float32 {
+	return 2 * c.radius * c.radius * math.Pi
 }
 
 func main() {
-	calculator := []Calculator{
-		Adder{},
-		Multiplier{},
-		Subtractor{},
-	}
+	square := Square{sideLength: 5}
+	circle := Circle{radius: 7}
 
-	a, b  := 10, 6
-	
-	for _, calculate := range calculator {
-		result := calculate.Calculate(a, b)
-
-        fmt.Printf("%s: %d и %d = %d\n", calculate.Name(), a, b, result)
-	}
-
+	printShapeArea(square)
+	printShapeArea(circle)
 }
 
 
+func printShapeArea(s Shape) {
+	fmt.Println(s.Area())
+	fmt.Println(s.Perimetr())
+}
