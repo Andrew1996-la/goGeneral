@@ -5,59 +5,51 @@ import "fmt"
 /*
 Интерфейсы
 */
-
-type Animal interface {
-	MakeSound() string
-	Move() string
+type Calculator interface {
+	Calculate(num1, num2 int) int
+	Name() string
 }
 
-type Lion struct {
-	makeSound string
-	move      string
+type Adder struct{}
+type Multiplier struct{}
+type Subtractor struct{}
+
+func (a Adder) Calculate(num1, num2 int) int {
+	return num1 + num2
 }
-type Monkey struct {
-	makeSound string
-	move      string
-}
-type Elephant struct {
-	makeSound string
-	move      string
+func (a Adder) Name() string {
+	return "Adder"
 }
 
-func (l Lion) MakeSound() string {
-	return "Lion make " + l.makeSound
+func (m Multiplier) Calculate(num1, num2 int) int {
+	return num1 * num2
 }
-func (l Lion) Move() string {
-	return "Lion move " + l.move
-}
-
-func (m Monkey) MakeSound() string {
-	return "Monkey make " + m.makeSound
-}
-func (m Monkey) Move() string {
-	return "Monkey move " + m.move
+func (m Multiplier) Name() string {
+	return "Multiplier"
 }
 
-func (e Elephant) MakeSound() string {
-	return "Elephant make " + e.makeSound
+func (s Subtractor) Calculate(num1, num2 int) int {
+	return num1 - num2
 }
-func (e Elephant) Move() string {
-	return "Elephant move " + e.move
+func (s Subtractor) Name() string {
+	return "Subtractor"
 }
 
 func main() {
-	animals := []Animal{
-		Lion{makeSound: "rrr", move: "fast"},
-		Monkey{makeSound: "bibibi", move: "middle"},
-		Elephant{makeSound: "ooooo", move: "slow"},
+	calculator := []Calculator{
+		Adder{},
+		Multiplier{},
+		Subtractor{},
 	}
 
-	for _, animal := range animals {
-		printMove(animal)
+	a, b  := 10, 6
+	
+	for _, calculate := range calculator {
+		result := calculate.Calculate(a, b)
+
+        fmt.Printf("%s: %d и %d = %d\n", calculate.Name(), a, b, result)
 	}
+
 }
-func printMove(animal Animal) {
-	fmt.Println(animal.MakeSound())
-	fmt.Println(animal.Move())
-}
+
 
