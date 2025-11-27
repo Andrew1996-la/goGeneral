@@ -3,60 +3,61 @@ package main
 import "fmt"
 
 /*
-СТРУКТУРЫ
+Интерфейсы
 */
 
-// Можем создавать кастомные типы чтобы для них сдлелать методы
-type Age int 
-
-// Метод для Age
-func (a Age) isAdult() bool {
-	return a >= 18
+type Animal interface {
+	MakeSound() string
+	Move() string
 }
 
-type User struct {
-	id      int
-	name    string
-	married bool
-	age     Age
+type Lion struct {
+	makeSound string
+	move      string
+}
+type Monkey struct {
+	makeSound string
+	move      string
+}
+type Elephant struct {
+	makeSound string
+	move      string
 }
 
-func NewUser(id int, name string, married bool, age Age) User {
-	return User{
-		id:      id,
-		name:    name,
-		married: married,
-		age: age,
-	}
+func (l Lion) MakeSound() string {
+	return "Lion make " + l.makeSound
+}
+func (l Lion) Move() string {
+	return "Lion move " + l.move
 }
 
-/*
-Метод value reciver. Означает что метод принимает копию User и не может ее менять.
-фактически выделяет новую ячейку памяти для User.
-*/
-func (u User) printUser(name string) {
-	u.name = name
-	fmt.Println(u.id, u.name, u.married)
+func (m Monkey) MakeSound() string {
+	return "Monkey make " + m.makeSound
+}
+func (m Monkey) Move() string {
+	return "Monkey move " + m.move
 }
 
-/*
-Метод pointer reciver. Означает что метод принимает указатель на оригинального User
-и способен его модифицировать
-*/
-func (u *User) changeUser(name string) {
-	u.name = name
-	fmt.Println(u.id, u.name, u.married)
+func (e Elephant) MakeSound() string {
+	return "Elephant make " + e.makeSound
+}
+func (e Elephant) Move() string {
+	return "Elephant move " + e.move
 }
 
 func main() {
-	//user1 := NewUser(1, "John", false) // <- оригинал
-	//user1.printUser("Peter")           // <- пробуем модифицировать
-	//fmt.Println(user1)                 // <- остается все как было
+	animals := []Animal{
+		Lion{makeSound: "rrr", move: "fast"},
+		Monkey{makeSound: "bibibi", move: "middle"},
+		Elephant{makeSound: "ooooo", move: "slow"},
+	}
 
-	// user2 := NewUser(2, "Ann", true) // <- оригинал
-	// user2.changeUser("Jula")         // <- модифицируем
-	// fmt.Println(user2)               // <- модифицированный user так как был передан pointer reciver
-
-	user3 := NewUser(3, "Serega", true, 21)
-	fmt.Println(user3.age.isAdult())
+	for _, animal := range animals {
+		printMove(animal)
+	}
 }
+func printMove(animal Animal) {
+	fmt.Println(animal.MakeSound())
+	fmt.Println(animal.Move())
+}
+
